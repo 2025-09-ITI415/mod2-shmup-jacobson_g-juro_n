@@ -9,9 +9,9 @@ public class Hero : MonoBehaviour
 
     [Header("Inscribed")]
     // These fields control the movement of the ship
-    public float speed = 30;
-    public float rollMult = -45;
-    public float pitchMult = 30;
+    public float speed = 60;
+    public float rollMult = -90;
+    public float pitchMult = 45;
     public GameObject projectilePrefab;
     public float projectileSpeed = 40;
     public Weapon[] weapons;
