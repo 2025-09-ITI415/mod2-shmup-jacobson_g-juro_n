@@ -53,9 +53,9 @@ MonoBehaviour:
     weaponModelPrefab: {fileID: 0}
     projectilePrefab: {fileID: 0}
     projectileColor: {r: 1, g: 1, b: 1, a: 1}
-    damageOnHit: 0
+    damageOnHit: 10
     damagePerSec: 0
-    delayBetweenShots: 0
+    delayBetweenShots: 1
     velocity: 50
   nextShotTime: 0
 --- !u!1 &5153081989183711193

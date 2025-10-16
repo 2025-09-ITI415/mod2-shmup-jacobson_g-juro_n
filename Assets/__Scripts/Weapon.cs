@@ -41,13 +41,13 @@ public class WeaponDefinition
     [Tooltip("Color of the Projectile that is fired")]
     public Color projectileColor = Color.white;                        // d
     [Tooltip("Damage caused when a single Projectile hits an Enemy")]
-    public float damageOnHit = 0;
+    public float damageOnHit = 1;
     [Tooltip("Damage caused per second by the Laser [Not Implemented]")]
-    public float damagePerSec = 0;
+    public float damagePerSec = 2;
     [Tooltip("Seconds to delay between shots")]
-    public float delayBetweenShots = 0;
+    public float delayBetweenShots = 0.2f;
     [Tooltip("Velocity of individual Projectiles")]
-    public float velocity = 50;
+    public float velocity = 80;
 }
 
 public class Weapon : MonoBehaviour
