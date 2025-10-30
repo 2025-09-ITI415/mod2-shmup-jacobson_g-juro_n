@@ -17,7 +17,8 @@ public enum eWeaponType
     missile,    // [NI] Homing missiles
 
     laser,      // [NI] Damage over time
-    shield      // Raise shieldLevel
+    shield,      // Raise shieldLevel
+    star        //invincible and all powerful
 }
 
 

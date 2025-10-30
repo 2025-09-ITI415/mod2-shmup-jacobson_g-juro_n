@@ -29,6 +29,28 @@ public class Hero : MonoBehaviour
     public event WeaponFireDelegate fireEvent;
 
 
+    [Header("Star / Invincibility")]
+    [SerializeField] private float starDuration = 4f;   // 3–5 seconds
+    private bool _isInvincible;
+    private Coroutine _starCo;
+
+    public bool IsInvincible => _isInvincible;
+
+    public void ActivateStar(float duration = -1f)
+    {
+        if (_starCo != null) StopCoroutine(_starCo);
+        float d = (duration > 0f) ? duration : starDuration;
+        _starCo = StartCoroutine(StarRoutine(d));
+    }
+
+    private IEnumerator StarRoutine(float duration)
+    {
+        _isInvincible = true;
+        yield return new WaitForSeconds(duration);
+        _isInvincible = false;
+        _starCo = null;
+    }
+
 
     void Awake()
     {
@@ -92,7 +114,7 @@ public class Hero : MonoBehaviour
     //}
 
     void OnTriggerEnter(Collider other)
-    {
+    { 
         Transform rootT = other.gameObject.transform.root;                    // a
         GameObject go = rootT.gameObject;
         //Debug.Log("Shield trigger hit by: " + go.gameObject.name);
@@ -105,9 +127,15 @@ public class Hero : MonoBehaviour
         PowerUp pUp = go.GetComponent<PowerUp>();
 
         if (enemy != null)
-        {  // If the shield was triggered by an enemy
-            shieldLevel--;        // Decrease the level of the shield by 1
-            Destroy(go);          // … and Destroy the enemy                  // f
+        {
+            if (_isInvincible)
+            {
+                Destroy(go); // Kill enemy on contact
+                return;
+            }
+
+            shieldLevel--;
+            Destroy(go);
         }
         else if (pUp != null)
         {
@@ -168,6 +196,10 @@ public class Hero : MonoBehaviour
         {
             case eWeaponType.shield:                                              // a 
                 shieldLevel++;
+                break;
+
+            case eWeaponType.star:      
+                ActivateStar();          // Start invincibility
                 break;
 
             default:                                                             // b
