@@ -117,6 +117,15 @@ public class Main : MonoBehaviour
     /// <param name="e"The Enemy that was destroyed</param
     static public void SHIP_DESTROYED(Enemy e)
     {
+        //make enemy_5 always drop star powerup
+        if (e.CompareTag("Enemy_5")) {
+            GameObject go = Instantiate<GameObject>(S.prefabPowerUp);
+            PowerUp pUp = go.GetComponent<PowerUp>();
+            pUp.SetType(eWeaponType.star);
+            pUp.transform.position = e.transform.position;
+            return;
+    }
+
         // Potentially generate a PowerUp
         if (Random.value <= e.powerUpDropChance)
         { // Underlined red for now  // c
@@ -124,6 +133,13 @@ public class Main : MonoBehaviour
             int ndx = Random.Range(0, S.powerUpFrequency.Length);           // d
             eWeaponType pUpType = S.powerUpFrequency[ndx];
 
+        if (pUpType == eWeaponType.star) {
+            do {
+                ndx = Random.Range(0, S.powerUpFrequency.Length);
+                pUpType = S.powerUpFrequency[ndx];
+                }
+                while (pUpType == eWeaponType.star);
+        }
             // Spawn a PowerUp
             GameObject go = Instantiate<GameObject>(S.prefabPowerUp);
             PowerUp pUp = go.GetComponent<PowerUp>();
